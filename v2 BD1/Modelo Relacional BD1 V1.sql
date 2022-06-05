@@ -1,3 +1,5 @@
+/* https://github.com/mattokgit44/Trabalho-Banco-de-Dados1 */
+
 CREATE TABLE JOGO(
 servidor VARCHAR(10),
 mapa VARCHAR(10),
