@@ -1,0 +1,121 @@
+CREATE TABLE JOGO(
+servidor VARCHAR(10),
+mapa VARCHAR(10),
+status_jogo INTEGER,
+missoes INTEGER,
+tasks INTEGER,
+PRIMARY KEY(servidor)
+);
+CREATE TABLE JOGADOR(
+email VARCHAR(30),
+nome VARCHAR(20),
+cpf INTEGER,
+data_nascimento DATE,
+codigo_usuario INTEGER,
+PRIMARY KEY(email)
+);
+CREATE TABLE CONTA(
+codigo_usuario INTEGER,
+status_acc VARCHAR(10),
+login VARCHAR(15),
+senha VARCHAR(20),
+PRIMARY KEY(codigo_usuario),
+FOREIGN KEY (codigo_usuario) REFERENCES JOGADOR(codigo_usuario) ON DELETE CASCADE
+);
+CREATE TABLE PERSONAGEM(
+codigo_person INTEGER,
+vocacao VARCHAR(10),
+nivel INTEGER,
+skills INTEGER,
+money INTEGER,
+status_person VARCHAR(10),
+PRIMARY KEY(codigo_person),
+FOREIGN KEY(codigo_person) REFERENCES CONTA(codigo_usuario) ON DELETE CASCADE
+);
+CREATE TABLE INVENTARIO(
+ref_person INTEGER,
+capacete VARCHAR(20),
+peitoral VARCHAR(20),
+calca VARCHAR(20),
+bota VARCHAR(20),
+mao_prim VARCHAR(20),
+mao_sec VARCHAR(20),
+PRIMARY KEY(ref_person),
+FOREIGN KEY(ref_person) REFERENCES PERSONAGEM(codigo_usuario) ON DELETE CASCADE
+);
+CREATE TABLE MOCHILA(
+ID integer,
+volume INTEGER,
+capacidade INTEGER,
+skin VARCHAR(10),
+peso INTEGER,
+PRIMARY KEY(ID),
+FOREIGN KEY(ID) REFERENCES INVENTARIO(ref_person) ON DELETE CASCADE
+);
+CREATE TABLE ITENS(
+ID INTEGER,
+peso INTEGER,
+utilidade VARCHAR(10),
+unidades INTEGER,
+PRIMARY KEY(ID),
+FOREIGN KEY(ID) REFERENCES MOCHILA(ID) ON DELETE CASCADE
+);
+CREATE TABLE GUILDA(
+ID INTEGER,
+meste_id VARCHAR(20),
+rank_guild INTEGER,
+membros INTEGER,
+PRIMARY KEY(ID)
+);
+CREATE TABLE GUILD_BANK(
+n_banco INTEGER,
+saldo INTEGER,
+player_permitido VARCHAR(20),
+limite INTEGER,
+PRIMARY KEY(n_banco),
+FOREIGN KEY (n_banco) REFERENCES GUILDA(id) ON DELETE CASCADE
+);
+CREATE TABLE SITE(
+url VARCHAR(50),
+design VARCHAR(10),
+status_site INTEGER,
+PRIMARY KEY (url)
+);
+CREATE TABLE ABAS(
+url VARCHAR(50),
+donation VARCHAR(50),
+news VARCHAR(50),
+forum VARCHAR(50),
+shop VARCHAR(50),
+PRIMARY KEY(url),
+FOREIGN KEY(url) REFERENCES SITE(url) ON DELETE CASCADE
+);
+CREATE TABLE PAINEL_USUARIO(
+person_id INTEGER,
+infos VARCHAR(20),
+acc_status INTEGER,
+gerenciamento_conta VARCHAR(10),
+PRIMARY KEY(person_id),
+FOREIGN KEY(person_id) REFERENCES JOGADOR(codigo_usuario)
+);
+CREATE TABLE FUNCIONARIO(
+ID INTEGER,
+senha VARCHAR(20),
+login VARCHAR(15),
+nivel_acesso INTEGER,
+PRIMARY KEY(ID)
+);
+CREATE TABLE GAMEMASTER(
+ID INTEGER,
+senha VARCHAR(20),
+login VARCHAR(15),
+nivel_acesso INTEGER, /*NORMALMENTE 3*/
+PRIMARY KEY(ID)
+);
+CREATE TABLE ADMINISTRADOR(
+ID INTEGER,
+senha VARCHAR(20),
+login VARCHAR(15),
+nivel_acesso INTEGER, /*NORMALMENTE 2*/
+PRIMARY KEY(ID)
+);
