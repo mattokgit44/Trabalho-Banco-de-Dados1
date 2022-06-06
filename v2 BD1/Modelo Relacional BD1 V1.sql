@@ -1,5 +1,5 @@
 /* https://github.com/mattokgit44/Trabalho-Banco-de-Dados1 */
-
+DROP TABLE IF EXISTS JOGO, JOGADOR, CONTA, PERSONAGEM, INVENTARIO, MOCHILA_TEM_ITENS, MOCHILA, ITENS, GUILD_BANK, GUILDA, SITE, ABAS, PAINEL_USUARIO, FUNCIONARIO, FUNCIONARIO_MONITORA_JOGADOR, ADMINISTRADOR, GAMEMASTER;
 CREATE TABLE JOGO(
 servidor VARCHAR(10),
 mapa VARCHAR(10),
@@ -9,12 +9,12 @@ tasks INTEGER,
 PRIMARY KEY(servidor)
 );
 CREATE TABLE JOGADOR(
+codigo_usuario INTEGER,
 email VARCHAR(30),
 nome VARCHAR(20),
 cpf INTEGER,
 data_nascimento DATE,
-codigo_usuario INTEGER,
-PRIMARY KEY(email, codigo_usuario)
+PRIMARY KEY(codigo_usuario, email)
 );
 CREATE TABLE CONTA(
 codigo_usuario INTEGER,
@@ -22,7 +22,7 @@ status_acc VARCHAR(10),
 login VARCHAR(15),
 senha VARCHAR(20),
 PRIMARY KEY(codigo_usuario),
-FOREIGN KEY (codigo_usuario) REFERENCES JOGADOR(codigo_usuario) ON DELETE CASCADE
+FOREIGN KEY(codigo_usuario) REFERENCES JOGADOR(codigo_usuario) ON DELETE CASCADE
 );
 CREATE TABLE PERSONAGEM(
 codigo_person INTEGER,
@@ -43,7 +43,7 @@ bota VARCHAR(20),
 mao_prim VARCHAR(20),
 mao_sec VARCHAR(20),
 PRIMARY KEY(ref_person),
-FOREIGN KEY(ref_person) REFERENCES PERSONAGEM(codigo_usuario) ON DELETE CASCADE
+FOREIGN KEY(ref_person) REFERENCES PERSONAGEM(codigo_person) ON DELETE CASCADE
 );
 CREATE TABLE MOCHILA(
 ID integer,
